@@ -27,7 +27,7 @@ let commands = [];
  */
 (async() => {
 
-	const files = await fg('./commands/*.js')
+	const files = await fg('./commands/**/*.js')
 	/**
 	 * 加載檔案(指令)，使用fast-glob模組
 	 */
@@ -40,7 +40,7 @@ let commands = [];
 			// 直接讀collection類很麻煩，將鍵值對再次添加進一個array裡
 			commands.push(command.data.toJSON());
 		} else {
-			console.log(`[WARNING] The command at ${fileUrl.href} is missing a required "data" or "execute" property.`);
+			
 		}
 	}
 	/**
@@ -63,7 +63,7 @@ let commands = [];
 	})(commands);
 })();
 // 此時的 commands 依然為空陣列，應為其需等待兩個promise回應(line:35)
-console.log(commands)
+// console.log(commands)
 
 // /**
 //  * 不用fast-glob的方法
