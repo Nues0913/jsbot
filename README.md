@@ -1,4 +1,4 @@
-# this is a JavaScript Discord Bot for learning JS
+# this is a JavaScript Discord Bot for COC API
 ```javascript=
 console.log("屁眼派對")
 ```
