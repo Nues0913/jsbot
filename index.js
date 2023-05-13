@@ -59,9 +59,10 @@ for (const file of commandFiles) {
 // ()()立即調用一個匿名函式
 (async(commands) =>{
 	try {
+		// 處理API請求，與伺服器通訊並註冊command上去
 		const rest = new REST({ version: '10' }).setToken(TOKEN);
 		console.log('Started refreshing application (/) commands.');
-
+		// 執行一個API的PUT請求(上傳指令)
 		const data = await rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands });
 
 		console.log(`Successfully reloaded ${data.length} application (/) commands.`);
@@ -77,16 +78,23 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
+// 偵測互動創建的發生
 client.on('interactionCreate', async interaction => {
+	// 若此互動不是斜線指令則跳出
 	if (!interaction.isChatInputCommand()) return;
+	// 宣告出觸發指令
 	const command = interaction.client.commands.get(interaction.commandName);
 	if (!command) {
+		// 找不到指令
 		console.error(`No command matching ${interaction.commandName} was found.`);
 		return;
 	}
 	try {
+		console.log(command)
+		// 傳interaction給指令定義的execute做後續動作
 		await command.execute(interaction);
 	} catch (error) {
+		// 錯誤打印
 		console.error(error);
 		if (interaction.replied || interaction.deferred) {
 			await interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
