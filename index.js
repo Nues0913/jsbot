@@ -74,7 +74,7 @@ for (const file of commandFiles) {
 
 
 client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
+  console.log(`🟢 Login as ${client.user.tag}!`);
 });
 
 client.on('interactionCreate', async interaction => {
